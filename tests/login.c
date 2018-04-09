@@ -17,14 +17,15 @@
 
 #include <check.h>
 #include <string.h>
+#include <stdio.h>
 
 #include "test.h"
 #include "login.h"
 
 START_TEST(test_login_hash)
 {
-	char ans[16];
-	char good[] = "\x2A\x8A\x12\xB4\xE0\x42\xEE\xAB\xD0\x19\x17\x1E\x44\xA0\x88\xCD";
+	char ans[32];
+	char good[] = "\xdc\xba\x44\xe8\x78\x90\xcf\x25\xe\x9b\xb8\xfc\x1b\xda\x67\x2a\x5f\xae\xbf\x68\x7a\xe2\x32\x9f\x81\x37\xb1\x96\x75\xf\x35\xd1";
 	char pass[32] = "iodine is the shit";
 	int len;
 	int seed;
@@ -34,6 +35,7 @@ START_TEST(test_login_hash)
 
 	memset(ans, 0, sizeof(ans));
 	login_calculate(ans, len, pass, seed);
+
 	fail_unless(strncmp(ans, good, len) == 0, NULL);
 }
 END_TEST
@@ -52,7 +54,7 @@ START_TEST(test_login_hash_short)
 	memset(ans, 0, sizeof(ans));
 	memset(check, 0, sizeof(check));
 
-	/* If len < 16, it should do nothing */
+	/* If len < 32, it should do nothing */
 	login_calculate(ans, len, pass, seed);
 	fail_if(memcmp(ans, check, sizeof(ans)));
 }
