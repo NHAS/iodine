@@ -1178,14 +1178,14 @@ client_tunnel(int tun_fd, int dns_fd)
 static void
 send_login(int fd, char *login, int len)
 {
-	char data[19];
+	char data[35];
 
 	memset(data, 0, sizeof(data));
 	data[0] = userid;
-	memcpy(&data[1], login, MIN(len, 16));
+	memcpy(&data[1], login, MIN(len, 32));
 
-	data[17] = (rand_seed >> 8) & 0xff;
-	data[18] = (rand_seed >> 0) & 0xff;
+	data[33] = (rand_seed >> 8) & 0xff;
+	data[34] = (rand_seed >> 0) & 0xff;
 
 	rand_seed++;
 

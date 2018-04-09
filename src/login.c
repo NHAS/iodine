@@ -43,6 +43,7 @@ login_calculate(char *buf, int buflen, const char *pass, int seed)
 	if (buflen < 32)
 		return;
 
+
 	memcpy(temp, pass, 32);
 	ix = (int*) temp;
 
